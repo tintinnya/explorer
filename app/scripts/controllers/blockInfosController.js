@@ -37,7 +37,7 @@ angular.module('ethExplorer')
                     $scope.number = result.number;
                     $scope.parentHash = result.parentHash;
                     $scope.blockNumber = result.number;
-                    $scope.timestamp = result.timestamp;
+                    $scope.timestamp = new Date(result.timestamp * 1000).toUTCString();
                     $scope.extraData = result.extraData;
                     $scope.dataFromHex = hex2a(result.extraData);
                     $scope.size = result.size;

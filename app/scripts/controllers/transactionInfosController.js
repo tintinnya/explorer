@@ -2,7 +2,7 @@ angular.module('ethExplorer')
     .controller('transactionInfosCtrl', function ($rootScope, $scope, $location, $routeParams,$q) {
 
        var web3 = $rootScope.web3;
-	
+
         $scope.init=function()
         {
             $scope.txId=$routeParams.transactionId;
@@ -24,31 +24,29 @@ angular.module('ethExplorer')
                     }
                     if(result.blockNumber!==undefined){
                         $scope.blockNumber = result.blockNumber;
+			$scope.conf = number - $scope.blockNumber;
+			if ($scope.conf===0) $scope.conf='unconfirmed';
                     }
                     else{
                         $scope.blockNumber ='pending';
+			$scope.conf = 'unconfirmed';
                     }
                     $scope.from = result.from;
                     $scope.gas = result.gas;
                     $scope.gasPrice = result.gasPrice.c[0] + " WEI";
                     $scope.hash = result.hash;
                     $scope.input = result.input; // that's a string
+		    $scope.inputFromHex = hex2a($scope.input);
                     $scope.nonce = result.nonce;
                     $scope.to = result.to;
                     $scope.transactionIndex = result.transactionIndex;
-                    $scope.ethValue = result.value.c[0] / 10000; 
+                    $scope.ethValue = result.value.c[0] / 10000;
                     $scope.txprice = (result.gas * result.gasPrice)/1000000000000000000 + " ETH";
-                    if($scope.blockNumber!==undefined){
-                        $scope.conf = number - $scope.blockNumber;
-                        if($scope.conf===0){
-                            $scope.conf='unconfirmed'; //TODO change color button when unconfirmed... ng-if or ng-class
-                        }
-                    }
                         //TODO Refactor this logic, asynchron calls + services....
                     if($scope.blockNumber!==undefined){
                         var info = web3.eth.getBlock($scope.blockNumber);
                         if(info!==undefined){
-                            $scope.time = info.timestamp;
+                            $scope.time = new Date(info.timestamp * 1000).toUTCString();
                         }
                     }
 
@@ -83,5 +81,20 @@ angular.module('ethExplorer')
         };
         $scope.init();
         console.log($scope.result);
+
+
+        function hex2a(hexx) {
+            var hex = hexx.toString(); //force conversion
+            var str = '';
+            for (var i = 0; i < hex.length; i += 2) {
+        	b = parseInt(hex.substr(i,2), 16)
+        	if ((b >= 32) && (b <= 127))
+                	str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
+        	else
+        		str += '.'
+            }
+
+            return str;
+        }
 
     });

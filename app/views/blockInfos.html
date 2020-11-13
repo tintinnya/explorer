@@ -24,8 +24,16 @@
                 <td>Block Number</td>
                 <td><a href="./#/block/{{blockNumber}}">{{number}}</a></td>
             </tr>
+	    <tr>
+		<td>Block Hash</td>
+		<td>{{hash}}</td>
+	    </tr>
+	    <tr>
+		<td>Parent's Hash</td>
+		<td>{{parentHash}}</td>
+	    </tr>
             <tr>
-                <td>Received Time</td>
+                <td>Received Time (UTC)</td>
                 <td>
                     {{timestamp}}
                 </td>
@@ -52,16 +60,18 @@
                 <td>Gas Limit</td>
                 <td>{{gasLimit}}</td>
             </tr>
+	    <tr>
+		<td>Gas Used</td>
+		<td>{{gasUsed}}</td>
+	    </tr>
             <tr>
                 <td>Data</td>
                 <td>{{extraData}}</td>
             </tr>
-
             <tr>
                 <td>Data (Translated)</td>
                 <td>{{dataFromHex}}</td>
             </tr>
-
             </tbody>
         </table>
     </div>

@@ -11,9 +11,19 @@ angular.module('ethExplorer')
 	// get latest 50 blocks
 	$scope.blocks = [];
 	for (var i = 0; i < maxBlocks; ++i) {
-	    $scope.blocks.push(web3.eth.getBlock(blockNum - i));
+	    b = web3.eth.getBlock(blockNum - i);
+	    b.difficulty = parseInt(b.difficulty, 10);
+	    if (i >= maxBlocks-1) {
+		b.delta = 0;
+	    } else {
+		bbefore = web3.eth.getBlock(blockNum - i - 1);
+		b.delta = b.timestamp - bbefore.timestamp;
+	    } 
+	    b.timestamp = new Date(b.timestamp * 1000).toUTCString();
+	    $scope.blocks.push(b);
 	}
-	
+	var mining = $scope.mining = web3.eth.mining	
+	var hashrate = $scope.hashrate = web3.eth.hashrate
         $scope.processRequest = function() {
              var requestStr = $scope.ethRequest.split('0x').join('');
 
