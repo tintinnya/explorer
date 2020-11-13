@@ -2,7 +2,7 @@ angular.module('ethExplorer')
     .controller('transactionInfosCtrl', function ($rootScope, $scope, $location, $routeParams,$q) {
 
        var web3 = $rootScope.web3;
-
+	
         $scope.init=function()
         {
             $scope.txId=$routeParams.transactionId;
@@ -40,7 +40,7 @@ angular.module('ethExplorer')
                     $scope.nonce = result.nonce;
                     $scope.to = result.to;
                     $scope.transactionIndex = result.transactionIndex;
-                    $scope.ethValue = result.value.c[0] / 10000;
+                    $scope.ethValue = result.value.c[0] / 10000; 
                     $scope.txprice = (result.gas * result.gasPrice)/1000000000000000000 + " ETH";
                         //TODO Refactor this logic, asynchron calls + services....
                     if($scope.blockNumber!==undefined){
@@ -49,7 +49,16 @@ angular.module('ethExplorer')
                             $scope.time = new Date(info.timestamp * 1000).toUTCString();
                         }
                     }
-
+	 	    if($scope.input!=='0x'){
+			$scope.output = web3.eth.call({
+    to: result.to,
+    data: result.input
+});
+			$scope.outputFromHex = hex2a($scope.output);
+		    } else {
+			$scope.output = 'n/a'
+			$scope.outputFromHex = 'n/a'
+		    }
                 });
 
             }
@@ -83,18 +92,18 @@ angular.module('ethExplorer')
         console.log($scope.result);
 
 
-        function hex2a(hexx) {
-            var hex = hexx.toString(); //force conversion
-            var str = '';
-            for (var i = 0; i < hex.length; i += 2) {
-        	b = parseInt(hex.substr(i,2), 16)
-        	if ((b >= 32) && (b <= 127))
-                	str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
-        	else
-        		str += '.'
-            }
+function hex2a(hexx) {
+    var hex = hexx.toString(); //force conversion
+    var str = '';
+    for (var i = 0; i < hex.length; i += 2) {
+	b = parseInt(hex.substr(i,2), 16)
+	if ((b >= 32) && (b <= 127))
+        	str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
+	else
+		str += '.'
+    }
 
-            return str;
-        }
+    return str;
+}
 
     });

@@ -16,7 +16,7 @@
                     <br>
                 </td>
                 <td width="48px" class="" style="padding:4px;text-align:center;vertical-align:middle;">
-                    <img src="https://blockchain.info/Resources/arrow_right_green.png">  <!--TODO upload the image on the server-->
+                    <img src="img/arrow_right_green.png">  <!--TODO upload the image on the server-->
                 </td>
                 <td class="">
                     <a href="./#/address/{{to}}">{{to}}</a>
@@ -29,7 +29,7 @@
             </tbody>
         </table>
         <div style="padding-bottom:30px;width:100%;text-align:right;clear:both">   <!--TODO no style tags...-->
-            <button class="btn btn-primary">{{conf}} Confirmations!</button>
+            <button class="btn btn-primary">{{conf}} Confirmations</button>
             <button class="btn btn-success cb"><span>{{ethValue}} ETH</span></button>
         </div>
         <table class="table table-striped">
@@ -69,14 +69,21 @@
                 <td>{{txprice}}</td>
             </tr>
             <tr>
-                <td>Data</td>
+                <td>Input</td>
                 <td>{{input}}</td>
             </tr>
 	    <tr>
-		<td>Data (from Hex)</td>
+		<td>Input (from Hex)</td>
 		<td>{{inputFromHex}}</td>
 	    </tr>
-
+	    <tr>
+		<td>Output when page loaded, not when transaction occured</td>
+		<td>{{output}}</td>
+	    </tr>
+	    <tr>
+		<td>Output (from Hex)</td>
+		<td>{{outputFromHex}}</td>
+	    </tr>
             </tbody>
         </table>
     </div>
