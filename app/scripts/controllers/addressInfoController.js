@@ -11,6 +11,7 @@ angular.module('ethExplorer')
           getAddressInfos().then(function(result){
             $scope.balance = result.balance;
             $scope.balanceInEther = result.balanceInEther;
+	    $scope.code = result.code;
           });
         }
 
@@ -22,7 +23,8 @@ angular.module('ethExplorer')
             if(!error) {
                 deferred.resolve({
                   balance: result,
-                  balanceInEther: web3.fromWei(result, 'ether')
+                  balanceInEther: web3.fromWei(result, 'ether'),
+		  code: web3.eth.getCode(addressId)	
                 });
             } else {
                 deferred.reject(error);
