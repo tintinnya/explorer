@@ -33,7 +33,7 @@ angular.module('ethExplorer')
                     }
                     $scope.from = result.from;
                     $scope.gas = result.gas;
-                    $scope.gasPrice = result.gasPrice.c[0] + " WEI";
+                    $scope.gasPrice = result.gasPrice.c[0];
                     $scope.hash = result.hash;
                     $scope.input = result.input; // that's a string
 		    $scope.inputFromHex = hex2a($scope.input);
@@ -41,7 +41,7 @@ angular.module('ethExplorer')
                     $scope.to = result.to;
                     $scope.transactionIndex = result.transactionIndex;
                     $scope.ethValue = result.value.c[0] / 10000; 
-                    $scope.txprice = (result.gas * result.gasPrice)/1000000000000000000 + " ETH";
+                    $scope.txprice = (result.gas * result.gasPrice)/1000000000000000000;
                         //TODO Refactor this logic, asynchron calls + services....
                     if($scope.blockNumber!==undefined){
                         var info = web3.eth.getBlock($scope.blockNumber);
@@ -58,6 +58,30 @@ angular.module('ethExplorer')
 		    } else {
 			$scope.output = 'n/a'
 			$scope.outputFromHex = 'n/a'
+		    }
+		    if($scope.txId!==undefined){
+		    	var trxReceipt = web3.eth.getTransactionReceipt($scope.txId);
+			if (trxReceipt!==undefined){
+			   $scope.contractAddress = trxReceipt.contractAddress;
+			   if ($scope.contractAddress==undefined) {
+			   	$scope.contractAddress = 'not a contract creation';
+			   }
+			   $scope.cumulativeGasUsed = trxReceipt.cumulativeGasUsed;
+			   $scope.effectiveGasPrice = parseInt(trxReceipt.effectiveGasPrice,16);
+			   $scope.gasUsed = trxReceipt.gasUsed;
+			   $scope.receiptStatus = trxReceipt.status;
+			   if ($scope.receiptStatus == '0x1'){
+			   	$scope.decodeReceiptStatus = 'Transaction was successful';
+			   } else {
+			   	$scope.decodeReceiptStatus = 'EVM reverted the transaction';
+			   }
+			   $scope.receiptFrom = trxReceipt.from;
+			   $scope.receiptTo = trxReceipt.to;
+			   if ($scope.receiptTo==undefined) {
+			   	$scope.receiptTo=='Address of receiver is null, indicates that this transaction is a contract creation transaction';
+			   }
+			   $scope.receiptTrxIndex = trxReceipt.transactionIndex;
+			}
 		    }
                 });
 

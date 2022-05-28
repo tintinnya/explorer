@@ -29,8 +29,8 @@
 		<td>{{hash}}</td>
 	    </tr>
 	    <tr>
-		<td>Parent's Hash</td>
-		<td>{{parentHash}}</td>
+		<td>Parent's Hash or Prev Hash</td>
+		<td><a href="./#/block/{{parentHash}}">{{parentHash}}</a></td>
 	    </tr>
             <tr>
                 <td>Received Time (UTC)</td>
@@ -46,11 +46,11 @@
             </tr>
             <tr>
                 <td>Nonce</td>
-                <td>{{nonce}}</td>
+		<td>{{nonce}} or {{nonceInDec}}</td>
             </tr>
             <tr>
                 <td>Size</td>
-                <td>{{size}}</td>
+                <td>{{size}} bytes</td>
             </tr>
             <tr>
                 <td>Miner</td>
@@ -58,19 +58,19 @@
             </tr>
             <tr>
                 <td>Gas Limit</td>
-                <td>{{gasLimit}}</td>
+                <td>{{gasLimit}} units</td>
             </tr>
 	    <tr>
 		<td>Gas Used</td>
-		<td>{{gasUsed}}</td>
+		<td>{{gasUsed}} units</td>
 	    </tr>
             <tr>
                 <td>Data</td>
-                <td>{{extraData}}</td>
+		<td><textarea class="mono" cols="50" rows="6">{{extraData}}</textarea></td>
             </tr>
             <tr>
                 <td>Data (Translated)</td>
-                <td>{{dataFromHex}}</td>
+		<td><textarea class="mono" cols="50" rows="6">{{dataFromHex}}</textarea></td>
             </tr>
             </tbody>
         </table>
@@ -88,7 +88,7 @@
               <th colspan="2" style="text-align:left">Transaction #{{$index+1}}</th>
           </tr>
           <tr>
-              <td>Hash #</td>
+              <td>Transaction Hash</td>
               <td><a href="./#/transaction/{{tx.hash}}">{{tx.hash}}</a></td>
           </tr>
           <tr>
@@ -101,15 +101,15 @@
           </tr>
           <tr>
               <td>Gas</td>
-              <td>{{tx.gas}}</a></td>
+              <td>{{tx.gas}} units</td>
           </tr>
           <tr>
               <td>Input</td>
-              <td>{{tx.input}}</a></td>
+	      <td><textarea class="mono" cols="50" rows="6">{{tx.input}}</textarea></td>
           </tr>
           <tr>
               <td>Value</td>
-              <td>{{tx.value}}</a></td>
+              <td>{{tx.value}}</td>
           </tr>
           </tbody>
       </table>

@@ -24,7 +24,7 @@ angular.module('ethExplorer')
                 deferred.resolve({
                   balance: result,
                   balanceInEther: web3.fromWei(result, 'ether'),
-		  code: web3.eth.getCode(addressId)	
+		  code: web3.eth.getCode($scope.addressId)	
                 });
             } else {
                 deferred.reject(error);

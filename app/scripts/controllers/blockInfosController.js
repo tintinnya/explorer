@@ -31,6 +31,7 @@ angular.module('ethExplorer')
                     $scope.gasLimit = result.gasLimit;
                     $scope.gasUsed = result.gasUsed;
                     $scope.nonce = result.nonce;
+                    $scope.nonceInDec = hex2dec(result.nonce);
                     $scope.difficulty = ("" + result.difficulty).replace(/['"]+/g, '');
                     $scope.gasLimit = result.gasLimit; // that's a string
                     $scope.nonce = result.nonce;
@@ -107,12 +108,21 @@ angular.module('ethExplorer')
           }
         })
 
-
 function hex2a(hexx) {
-    var hex = hexx.toString();//force conversion
+    var hex = hexx.toString(); //force conversion
     var str = '';
-    for (var i = 0; i < hex.length; i += 2)
-        str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
+    for (var i = 0; i < hex.length; i += 2) {
+	b = parseInt(hex.substr(i,2), 16)
+	if ((b >= 32) && (b <= 127))
+        	str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
+	else
+		str += '.'
+    }
+
     return str;
+}
+
+function hex2dec(strHex) {
+   return parseInt(strHex,16);
 }
 });

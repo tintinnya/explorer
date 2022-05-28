@@ -54,11 +54,11 @@
             </tr>
             <tr>
                 <td>Gas Used</td>
-                <td>{{gas}}</td>
+                <td>{{gas}} units</td>
             </tr>
             <tr>
                 <td>Gas Price</td>
-                <td>{{gasPrice}}</td>
+                <td>{{gasPrice}} wei/unit</td>
             </tr>
             <tr>
                 <td>Number of transactions made by the sender prior to this one</td>
@@ -66,26 +66,69 @@
             </tr>
             <tr>
                 <td>Transaction price</td>
-                <td>{{txprice}}</td>
+                <td>{{txprice}} ETH</td>
             </tr>
             <tr>
                 <td>Input</td>
-                <td>{{input}}</td>
+                <td><textarea class="mono" cols="100" rows="6">{{input}}</textarea></td>
             </tr>
 	    <tr>
 		<td>Input (from Hex)</td>
-		<td>{{inputFromHex}}</td>
+		<td><textarea class="mono" cols="100" rows="6">{{inputFromHex}}</textarea></td>
 	    </tr>
 	    <tr>
 		<td>Output when page loaded, not when transaction occured</td>
-		<td>{{output}}</td>
+		<td><textarea class="mono" cols="100" rows="6">{{output}}</textarea></td>
 	    </tr>
 	    <tr>
 		<td>Output (from Hex)</td>
-		<td>{{outputFromHex}}</td>
+		<td><textarea class="mono" cols="100" rows="6">{{outputFromHex}}</textarea></td>
 	    </tr>
             </tbody>
         </table>
+
+      <table class="table table-striped">
+        <tbody>
+          <tr>
+            <th colspan="2" style="text-align:left">Transaction Receipt</th>
+          </tr>
+          <tr>
+            <td>Receipt Trx Index in the Block</td>
+            <td>{{receiptTrxIndex}}</td>
+          </tr>
+          <tr>
+            <td>Receipt Transaction Status</td>
+	    <td>{{receiptStatus}} ({{decodeReceiptStatus}})</td>
+          </tr>
+          <tr>
+            <td>Receipt From</td>
+	    <td><a href="./#/address/{{receiptFrom}}">{{receiptFrom}}</a></td>
+          </tr>
+          <tr>
+            <td>Receipt To</td>
+	    <td><a href="./#/address/{{receiptTo}}">{{receiptTo}}</a></td>
+          </tr>
+          <tr>
+            <td>Contract Address</td>
+	    <td><a href="./#/address/{{contractAddress}}">{{contractAddress}}</a></td>
+          </tr>
+          <tr>
+            <td>gas Used</td>
+            <td>{{gasUsed}}</td>
+          </tr>
+          <tr>
+            <td>Cumulative Gas Used</td>
+            <td>{{cumulativeGasUsed}}</td>
+          </tr>
+          <tr>
+            <td>effective Gas Price</td>
+            <td>{{effectiveGasPrice}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+
+
     </div>
 
 </div>
