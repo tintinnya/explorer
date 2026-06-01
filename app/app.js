@@ -17,6 +17,10 @@ angular.module('ethExplorer', ['ngRoute','ui.bootstrap'])
                 templateUrl: 'views/transactionInfos.html',
                 controller: 'transactionInfosCtrl'
             }).
+            when('/tx/:transactionId', {
+                templateUrl: 'views/transactionInfos.html',
+                controller: 'transactionInfosCtrl'
+            }).
             when('/address/:addressId', {
                 templateUrl: 'views/addressInfo.html',
                 controller: 'addressInfoCtrl'
@@ -26,8 +30,9 @@ angular.module('ethExplorer', ['ngRoute','ui.bootstrap'])
             });
     }])
     .run(function($rootScope) {
+        var config = window.EXPLORER_CONFIG;
         var web3 = new Web3();
-        var eth_node_url = 'http://localhost:8545'; // TODO: remote URL
+        var eth_node_url = config.rpcUrl;
 	web3.setProvider(new web3.providers.HttpProvider(eth_node_url));
         $rootScope.web3 = web3;
         function sleepFor( sleepDuration ){

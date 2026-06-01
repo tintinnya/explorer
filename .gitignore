@@ -1,4 +1,6 @@
 # Created by https://www.gitignore.io/api/bower,node,osx,webstorm
+.env
+package-lock.json
 
 ### Bower ###
 bower_components
